@@ -107,15 +107,22 @@ public class PDFReaderActivity extends Activity implements View.OnTouchListener,
         try{
 
             imageView=(ImageView)findViewById(R.id.image);
+            String path=null;
 
             //UNPACK OUR DATA FROM INTENT
             Intent i=this.getIntent();
-            String path=i.getExtras().getString("PATH");
 
+            if(i.getAction()!= null){
+                path=i.getData().getPath();
+            }
+            else {
+                path = i.getExtras().getString("PATH");
+
+            }
             int REQ_WIDTH = imageView.getWidth();
             int REQ_HEIGHT = imageView.getHeight();
 
-            Bitmap bitmap = Bitmap.createBitmap(REQ_WIDTH, REQ_HEIGHT, Bitmap.Config.ARGB_4444);
+            Bitmap bitmap = Bitmap.createBitmap(REQ_WIDTH, REQ_HEIGHT, Bitmap.Config.ARGB_8888);
 
             //GET THE PDF FILE
             File file=new File(path);
