@@ -37,7 +37,15 @@ public class PDFReaderActivity extends Activity implements View.OnTouchListener,
 
         detector =  new GestureDetector(this,this);
 
+
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
         render();
+
     }
 
     @Override
@@ -81,10 +89,10 @@ public class PDFReaderActivity extends Activity implements View.OnTouchListener,
                 return false;
             // right to left swipe
             if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {//left swipe
-                CurrentPage--;
+                CurrentPage++;
                 render();
             }  else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {//right swipe
-                CurrentPage++;
+                CurrentPage--;
                 render();
             }
         } catch (Exception e) {
@@ -107,7 +115,7 @@ public class PDFReaderActivity extends Activity implements View.OnTouchListener,
             int REQ_WIDTH = imageView.getWidth();
             int REQ_HEIGHT = imageView.getHeight();
 
-            Bitmap bitmap = Bitmap.createBitmap(REQ_WIDTH, REQ_HEIGHT, Bitmap.Config.ARGB_8888);
+            Bitmap bitmap = Bitmap.createBitmap(REQ_WIDTH, REQ_HEIGHT, Bitmap.Config.ARGB_4444);
 
             //GET THE PDF FILE
             File file=new File(path);
