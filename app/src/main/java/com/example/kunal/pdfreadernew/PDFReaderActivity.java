@@ -44,7 +44,7 @@ public class PDFReaderActivity extends Activity implements View.OnTouchListener,
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
 
-        render();
+        render();               //for pdf rendering
 
     }
 
@@ -120,6 +120,7 @@ public class PDFReaderActivity extends Activity implements View.OnTouchListener,
             //GET THE PDF FILE
             File file=new File(path);
             PdfRenderer renderer = new PdfRenderer(ParcelFileDescriptor.open(file,ParcelFileDescriptor.MODE_READ_ONLY));
+
 
             if(CurrentPage<0){
                 CurrentPage=0;
