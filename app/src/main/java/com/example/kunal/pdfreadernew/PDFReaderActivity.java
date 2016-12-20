@@ -137,7 +137,7 @@ public class PDFReaderActivity extends Activity implements View.OnTouchListener,
 
             Matrix m = imageView.getImageMatrix();
             Rect rect= new Rect(0,0,REQ_WIDTH,REQ_HEIGHT);
-            renderer.openPage(CurrentPage).render(bitmap,rect,m,PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+            renderer.openPage(CurrentPage).render(bitmap, rect, m, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
             imageView.setImageMatrix(m);
             imageView.setImageBitmap(bitmap);
             imageView.invalidate();
