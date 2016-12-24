@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -36,7 +37,9 @@
                 <data android:scheme="http" android:host="*" android:pathPattern=".*\\.pdf" />
                 <data android:scheme="https" android:host="*" android:pathPattern=".*\\.pdf" />
             </intent-filter>
+
         </activity>
+        <activity android:name=".TextActivity"/>
     </application>
 
 </manifest>
