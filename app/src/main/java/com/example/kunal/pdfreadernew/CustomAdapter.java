@@ -69,9 +69,19 @@ public class CustomAdapter extends BaseAdapter {
     //OPEN PDF VIEW
     private void openPDFView(String path)
     {
-        Intent i=new Intent(c,PDFReaderActivity.class);
-        i.putExtra("PATH",path);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        c.startActivity(i);
+
+        if(path.endsWith("pdf")) {
+            Intent i = new Intent(c, PDFReaderActivity.class);
+            i.putExtra("PATH", path);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            c.startActivity(i);
+        }
+        if(path.endsWith("txt")){
+            Intent i = new Intent(c, TextRendering.class);
+            i.putExtra("PATH", path);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            c.startActivity(i);
+
+        }
     }
 }

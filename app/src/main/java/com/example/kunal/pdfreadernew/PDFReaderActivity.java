@@ -26,6 +26,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.NotificationCompat;
@@ -63,6 +64,8 @@ public class PDFReaderActivity extends Activity implements View.OnTouchListener,
     GestureDetector detector;
 
     Bitmap bitmap;
+    Uri URI;
+    String ImagePath;
 
     private TessOCR mTessOCR;
     private ProgressDialog mProgressDialog;
@@ -203,6 +206,16 @@ public class PDFReaderActivity extends Activity implements View.OnTouchListener,
 //        AlertDialog alert = builder.create();
 //        alert.show();
 
+
+        ImagePath = MediaStore.Images.Media.insertImage(
+                getContentResolver(),
+                bitmap,
+                "demo_image",
+                "demo_image"
+        );
+
+        URI = Uri.parse(ImagePath);
+
         doOCR(convertColorIntoBlackAndWhiteImage(bitmap));
     }
 
@@ -335,7 +348,8 @@ public class PDFReaderActivity extends Activity implements View.OnTouchListener,
         paint.setColorFilter(colorMatrixFilter);
 
         Canvas canvas = new Canvas(blackAndWhiteBitmap);
-        canvas.drawBitmap(blackAndWhiteBitmap, 0, 0, paint);
+        canvas.drawBitmap(blackAndWhiteBitmap,0, 0, paint);
+
 
         return blackAndWhiteBitmap;
     }
