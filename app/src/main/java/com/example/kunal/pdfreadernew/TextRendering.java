@@ -63,19 +63,24 @@ public class TextRendering extends Activity implements LangConverter.LangConvert
 
                 if (position == 1) {
                     langCode = "en";
+                    LangConverter converter =  new LangConverter(TextRendering.this);
+                    converter.execute(new LangRequest(finalString,langCode));
                 } else if (position == 2) {
                     langCode = "hi";
+                    LangConverter converter =  new LangConverter(TextRendering.this);
+                    converter.execute(new LangRequest(finalString,langCode));
                 } else if (position == 3) {
                     langCode = "es";
+                    LangConverter converter =  new LangConverter(TextRendering.this);
+                    converter.execute(new LangRequest(finalString,langCode));
                 } else if (position == 4) {
                     langCode = "ru";
+                    LangConverter converter =  new LangConverter(TextRendering.this);
+                    converter.execute(new LangRequest(finalString,langCode));
                 }
 
 
 //        dialog.show();
-
-                LangConverter converter =  new LangConverter(getApplicationContext());
-                converter.execute(new LangRequest(finalString,langCode));
 
 //        dialog.cancel();
 

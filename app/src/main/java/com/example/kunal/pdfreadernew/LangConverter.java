@@ -31,6 +31,7 @@ public class LangConverter extends AsyncTask<LangRequest,Void,LangResponse> {
     protected LangResponse doInBackground(LangRequest... params) {
 
         LangRequest request = params[0];
+        JSONObject jsonObject = null;//todo
 
         try {
             String urlString = API_URL + "?text=" + request.finalString + "&from=" + "en" + "&to=" + request.langCode;
@@ -47,7 +48,7 @@ public class LangConverter extends AsyncTask<LangRequest,Void,LangResponse> {
                 totalResponse += line;
             }
 
-            JSONObject jsonObject = new JSONObject(totalResponse);
+            jsonObject = new JSONObject(totalResponse);
 
             LangResponse response = new LangResponse(jsonObject);
 
@@ -59,7 +60,7 @@ public class LangConverter extends AsyncTask<LangRequest,Void,LangResponse> {
         }
 
 
-        return null;
+        return new LangResponse(jsonObject);
     }
 
 
