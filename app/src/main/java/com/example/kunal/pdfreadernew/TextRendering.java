@@ -125,7 +125,7 @@ public class TextRendering extends Activity implements LangConverter.LangConvert
             String[] loadText = Load(file);
 
             for (int i = 0; i < loadText.length; i++) {
-                finalString += loadText[i] + System.getProperty("line.separator");
+                finalString += loadText[i] +" " ; //+ System.getProperty("line.separator")
             }
 
             textView.setText(finalString);

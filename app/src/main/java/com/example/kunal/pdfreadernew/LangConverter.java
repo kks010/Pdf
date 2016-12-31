@@ -18,6 +18,7 @@ import java.net.URL;
 public class LangConverter extends AsyncTask<LangRequest,Void,LangResponse> {
 
     public LangConverterListner listner;
+    public String updatedString;
     public String API_URL="http://www.transltr.org/api/translate";
 
     public LangConverter(Context context) {
@@ -34,7 +35,9 @@ public class LangConverter extends AsyncTask<LangRequest,Void,LangResponse> {
         JSONObject jsonObject = null;//todo
 
         try {
-            String urlString = API_URL + "?text=" + request.finalString + "&from=" + "en" + "&to=" + request.langCode;
+            updatedString=request.finalString.replace(" ","%20");
+
+            String urlString = API_URL + "?text=" + updatedString + "&from=" + "en" + "&to=" + request.langCode;
             URL url = new URL(urlString);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET"); //take info
