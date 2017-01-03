@@ -50,7 +50,8 @@ public class CustomAdapter extends BaseAdapter {
         final PDFDoc pdfDoc= (PDFDoc) this.getItem(i);
 
         TextView nameTxt= (TextView) view.findViewById(R.id.pdf_name);
-        ImageView img= (ImageView) view.findViewById(R.id.pdf_photo);
+        ImageView img = (ImageView) view.findViewById(R.id.pdf_photo);
+
 
         //BIND DATA
         nameTxt.setText(pdfDoc.getName());
@@ -78,6 +79,13 @@ public class CustomAdapter extends BaseAdapter {
         }
         if(path.endsWith("txt")){
             Intent i = new Intent(c, TextRendering.class);
+            i.putExtra("PATH", path);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            c.startActivity(i);
+
+        }
+        if(path.endsWith("epub")){
+            Intent i = new Intent(c, EPubRendering.class);
             i.putExtra("PATH", path);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             c.startActivity(i);

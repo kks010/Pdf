@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity{
             {
                 File file=files[i];
 
-                if(file.getPath().endsWith("pdf")||file.getPath().endsWith("txt"))
+                if(file.getPath().endsWith("pdf")||file.getPath().endsWith("txt")||file.getPath().endsWith("epub"))
                 {
                     pdfDoc=new PDFDoc();
                     pdfDoc.setName(file.getName());
