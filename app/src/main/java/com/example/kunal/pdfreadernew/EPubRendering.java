@@ -1,9 +1,12 @@
 package com.example.kunal.pdfreadernew;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
+import android.graphics.Region;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.KeyboardView;
@@ -28,6 +31,8 @@ import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -49,7 +54,8 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
     Reader reader;
     ViewPager mViewPager;
 
-    float textSize = 0;
+    int getPosition;
+    float textSize = 12;
     int startSelection;
     int endSelection;
     String selectedText;
@@ -122,6 +128,8 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
 
     public View onFragmentReady(int position) {
 
+        getPosition=position;
+
         BookSection bookSection = null;
 
         try {
@@ -172,7 +180,9 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
             WebView webView = new WebView(EPubRendering.this);
             webView.loadDataWithBaseURL(null, data, mimeType, encoding, null);
 
+
             webView.setLayoutParams(layoutParams);
+            webView.getSettings().setBuiltInZoomControls(true);
 
             return webView;
         } else {
@@ -194,6 +204,12 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
 
                     imageAsDrawable = new BitmapDrawable(getResources(), imageAsBitmap);
                     imageAsDrawable.setBounds(imageWidthStartPx, 0, imageWidthEndPx, imageAsBitmap.getHeight());
+
+
+
+//                    ImageView imageView= (ImageView)findViewById(R.id.expanded_image);
+//                    imageView.setBackground(imageAsDrawable);
+
                     return imageAsDrawable;
                 }
             }, null));
@@ -202,6 +218,7 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
 
             textView.setPadding(pxPadding, pxPadding, pxPadding, pxPadding);
             textView.setTextColor(getColor(R.color.black));
+            textView.setTextSize(textSize);
             textView.setTextIsSelectable(true);
 
 //            startSelection = textView.getSelectionStart();
@@ -217,6 +234,7 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
         }
     }
 
+
     private int dpToPx(int dp) {
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
@@ -226,11 +244,12 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
     public boolean onKeyLongPress(int keyCode, KeyEvent event) {
 
         if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-            textSize = textView.getTextSize() - 2;
+            textSize = textSize - 2;
             textView.setTextSize(textSize);
+
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-            textSize = textView.getTextSize() + 2;
+            textSize = textSize + 2;
             textView.setTextSize(textSize);
             return true;
         }
@@ -275,6 +294,45 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
 
             case R.id.sepia:
                 mViewPager.setBackgroundColor(getColor(R.color.sepia));
+                return true;
+
+            case R.id.six:
+                textSize=6;
+
+//                PageFragment p = new PageFragment();
+//                android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                transaction.replace(R.id.container,p);
+//                transaction.commit();
+
+                return true;
+            case R.id.eight:
+                textSize=8;
+                onFragmentReady(getPosition);
+                return true;
+            case R.id.ten:
+                textSize=10;
+                onFragmentReady(getPosition);
+                return true;
+            case R.id.twelve:
+                textSize=12;
+                onFragmentReady(getPosition);
+                return true;
+            case R.id.fourteen:
+                textSize=14;
+                onFragmentReady(getPosition);
+                return true;
+            case R.id.sixteen:
+                textSize=16;
+                onFragmentReady(getPosition);
+                return true;
+            case R.id.eighteen:
+                textSize=18;
+                onFragmentReady(getPosition);
+                return true;
+            case R.id.twenty:
+                textSize=20;
+                onFragmentReady(getPosition);
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);

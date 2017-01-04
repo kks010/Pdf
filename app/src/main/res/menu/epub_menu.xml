@@ -18,5 +18,45 @@
 
         </menu>
     </item>
+    <item
+        android:id="@+id/text_size"
+        android:showAsAction="never"
+        android:title="Text size">
+        <menu>>
+            <item
+                android:id="@+id/six"
+                android:showAsAction="always"
+                android:title="6"/>
+            <item
+                android:id="@+id/eight"
+                android:showAsAction="always"
+                android:title="8"/>
+            <item
+                android:id="@+id/ten"
+                android:showAsAction="always"
+                android:title="10"/>
+            <item
+                android:id="@+id/twelve"
+                android:showAsAction="always"
+                android:title="12"/>
+            <item
+                android:id="@+id/fourteen"
+                android:showAsAction="always"
+                android:title="14"/>
+            <item
+                android:id="@+id/sixteen"
+                android:showAsAction="always"
+                android:title="16"/>
+            <item
+                android:id="@+id/eighteen"
+                android:showAsAction="always"
+                android:title="18"/>
+            <item
+                android:id="@+id/twenty"
+                android:showAsAction="always"
+                android:title="20"/>
+
+        </menu>
+    </item>
 
 </menu>
