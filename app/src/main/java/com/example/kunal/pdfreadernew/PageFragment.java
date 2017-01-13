@@ -16,6 +16,10 @@ public class PageFragment extends Fragment {
 
     private static final String ARG_TAB_POSITON = "tab_position";
 
+    View rootView;
+    RelativeLayout mainLayout;
+    View view;
+
     private OnFragmentReadyListener onFragmentReadyListener;
 
     /**
@@ -51,11 +55,11 @@ public class PageFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_display, container, false);
+        rootView = inflater.inflate(R.layout.fragment_display, container, false);
 
-        RelativeLayout mainLayout = (RelativeLayout) rootView.findViewById(R.id.fragment_main_layout);
+        mainLayout = (RelativeLayout) rootView.findViewById(R.id.fragment_main_layout);
 
-        View view = onFragmentReadyListener.onFragmentReady(getArguments().getInt(ARG_TAB_POSITON));
+        view = onFragmentReadyListener.onFragmentReady(getArguments().getInt(ARG_TAB_POSITON));
 
         if (view != null) {
             mainLayout.addView(view);
@@ -63,4 +67,11 @@ public class PageFragment extends Fragment {
 
         return rootView;
     }
+
+
+//    public void setView(View v){
+//
+//        mainLayout.addView(view);
+//    }
+
 }

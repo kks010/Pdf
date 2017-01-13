@@ -29,4 +29,6 @@ dependencies {
     compile 'com.github.barteksc:android-pdf-viewer:1.4.0'
     compile project(':tess-two')
     compile 'com.github.mertakdut:EpubParser:1.0.91'
+    compile files('C:/Users/Kunal/AndroidStudioProjects/PDFReaderNew/libraries/epublib-core-latest.jar')
+    compile files('C:/Users/Kunal/AndroidStudioProjects/PDFReaderNew/libraries/slf4j-android-1.6.1-RC1.jar')
 }

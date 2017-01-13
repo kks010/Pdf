@@ -58,5 +58,10 @@
 
         </menu>
     </item>
+    <item
+        android:id="@+id/font"
+        android:showAsAction="never"
+        android:title="font">
+    </item>
 
 </menu>

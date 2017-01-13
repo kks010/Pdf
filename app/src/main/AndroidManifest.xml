@@ -60,7 +60,7 @@
             <data android:scheme="https" android:host="*" android:pathPattern=".*\\.pdf" />
         </intent-filter>
         </activity>
-        <activity android:name=".EPubRendering">
+        <activity android:name=".EPubParser">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />

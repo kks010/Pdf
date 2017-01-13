@@ -55,10 +55,12 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
     ViewPager mViewPager;
 
     int getPosition;
-    float textSize = 12;
+    int textSize = 12;
     int startSelection;
     int endSelection;
     String selectedText;
+
+    BookSection bookSection;
 
     Drawable imageAsDrawable;
 
@@ -85,9 +87,9 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setOffscreenPageLimit(0);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+//        mViewPager = (ViewPager) findViewById(R.id.container);
+//        mViewPager.setOffscreenPageLimit(0);
+//        mViewPager.setAdapter(mSectionsPagerAdapter);
 
 
         //UNPACK OUR DATA FROM INTENT
@@ -130,7 +132,7 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
 
         getPosition=position;
 
-        BookSection bookSection = null;
+        bookSection = null;
 
         try {
             bookSection = reader.readSection(position);
@@ -206,7 +208,6 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
                     imageAsDrawable.setBounds(imageWidthStartPx, 0, imageWidthEndPx, imageAsBitmap.getHeight());
 
 
-
 //                    ImageView imageView= (ImageView)findViewById(R.id.expanded_image);
 //                    imageView.setBackground(imageAsDrawable);
 
@@ -277,6 +278,7 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
             // getItem is called to instantiate the fragment for the given page.
             return PageFragment.newInstance(position);
         }
+
     }
 
     @Override
@@ -298,6 +300,10 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
 
             case R.id.six:
                 textSize=6;
+
+//                View v = onFragmentReady(getPosition);
+//                PageFragment p = new PageFragment();
+//                p.setView(v);
 
 //                PageFragment p = new PageFragment();
 //                android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -331,7 +337,7 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
                 return true;
             case R.id.twenty:
                 textSize=20;
-                onFragmentReady(getPosition);
+//                onFragmentReady(getPosition);
                 return true;
 
             default:
