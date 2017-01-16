@@ -51,7 +51,7 @@ public class EPubParser extends AppCompatActivity {
 
         getSupportActionBar().setTitle("EPub Reader");
 
-        WebView webView = (WebView) findViewById(R.id.web_view);
+        WebView webView = (WebView) findViewById(R.id.container);
         webView.getSettings().setJavaScriptEnabled(true);
 
         CustomWebClient customWebClient = new CustomWebClient(getApplicationContext());
@@ -114,9 +114,8 @@ public class EPubParser extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
 //            linez = linez.replace("../", "");
-
-
 
 //            webView.loadDataWithBaseURL(null, linez, "text/html", "UTF-8", null);
             webView.loadData(linez,"text/html","UTF-8");

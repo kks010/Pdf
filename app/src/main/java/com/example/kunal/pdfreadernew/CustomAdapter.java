@@ -85,7 +85,7 @@ public class CustomAdapter extends BaseAdapter {
 
         }
         if(path.endsWith("epub")){
-            Intent i = new Intent(c, EPubParser.class);
+            Intent i = new Intent(c, EPubRendering.class);
             i.putExtra("PATH", path);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             c.startActivity(i);

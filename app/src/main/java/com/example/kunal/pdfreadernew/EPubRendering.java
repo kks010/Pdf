@@ -87,9 +87,9 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-//        mViewPager = (ViewPager) findViewById(R.id.container);
-//        mViewPager.setOffscreenPageLimit(0);
-//        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setOffscreenPageLimit(0);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
 
 
         //UNPACK OUR DATA FROM INTENT
@@ -305,10 +305,10 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
 //                PageFragment p = new PageFragment();
 //                p.setView(v);
 
-//                PageFragment p = new PageFragment();
-//                android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//                transaction.replace(R.id.container,p);
-//                transaction.commit();
+                PageFragment p = PageFragment.newInstance(getPosition);
+                android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.container,p);
+                transaction.commit();
 
                 return true;
             case R.id.eight:
