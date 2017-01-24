@@ -9,6 +9,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.kunal.pdfreadernew.epub.EPubRendering;
+import com.example.kunal.pdfreadernew.html.HtmlRendering;
+import com.example.kunal.pdfreadernew.pdf.PDFReaderActivity;
+import com.example.kunal.pdfreadernew.text.TextRendering;
+
 import java.util.ArrayList;
 
 /**
@@ -17,21 +22,21 @@ import java.util.ArrayList;
 public class CustomAdapter extends BaseAdapter {
 
     Context c;
-    ArrayList<PDFDoc> pdfDocs;
+    ArrayList<Doc> docs;
 
-    public CustomAdapter(Context c, ArrayList<PDFDoc> pdfDocs) {
+    public CustomAdapter(Context c, ArrayList<Doc> docs) {
         this.c = c;
-        this.pdfDocs = pdfDocs;
+        this.docs = docs;
     }
 
     @Override
     public int getCount() {
-        return pdfDocs.size();
+        return docs.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return pdfDocs.get(i);
+        return docs.get(i);
     }
 
     @Override
@@ -47,7 +52,7 @@ public class CustomAdapter extends BaseAdapter {
             view= LayoutInflater.from(c).inflate(R.layout.card_view_list,viewGroup,false);
         }
 
-        final PDFDoc pdfDoc= (PDFDoc) this.getItem(i);
+        final Doc pdfDoc= (Doc) this.getItem(i);
 
         TextView nameTxt= (TextView) view.findViewById(R.id.pdf_name);
         ImageView img = (ImageView) view.findViewById(R.id.pdf_photo);
@@ -55,20 +60,20 @@ public class CustomAdapter extends BaseAdapter {
 
         //BIND DATA
         nameTxt.setText(pdfDoc.getName());
-        img.setImageResource(R.drawable.pdf);
+        img.setImageResource(R.drawable.book);
 
         //VIEW ITEM CLICK
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openPDFView(pdfDoc.getPath());
+                openView(pdfDoc.getPath());
             }
         });
         return view;
     }
 
-    //OPEN PDF VIEW
-    private void openPDFView(String path)
+    //OPEN VIEW
+    private void openView(String path)
     {
 
         if(path.endsWith("pdf")) {
@@ -86,6 +91,13 @@ public class CustomAdapter extends BaseAdapter {
         }
         if(path.endsWith("epub")){
             Intent i = new Intent(c, EPubRendering.class);
+            i.putExtra("PATH", path);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            c.startActivity(i);
+
+        }
+        if(path.endsWith("html")){
+            Intent i = new Intent(c, HtmlRendering.class);
             i.putExtra("PATH", path);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             c.startActivity(i);

@@ -6,5 +6,11 @@
     <color name="black">#000000</color>
     <color name="grey">#edecefec</color>
     <color name="white">#fdfcfdfc</color>
-    <color name="sepia">#dab3731a</color>
+    <color name="sepia">#99734705</color>
+    <color name="red">#d0ec0b0f</color>
+    <color name="blue">#dd2178b3</color>
+    <color name="green">#d024af12</color>
+    <color name="light_brown">#90f7d596</color>
+    <color name="brown">#f88b5d08</color>
+    <color name="dark_brown">#f84b3102</color>
 </resources>

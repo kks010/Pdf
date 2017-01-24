@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/bookmark"
+        android:showAsAction="always"
+        app:showAsAction="always"
+        android:icon="@drawable/bookmark" />
 
     <item
         android:id="@+id/background"
@@ -22,7 +29,7 @@
         android:id="@+id/text_size"
         android:showAsAction="never"
         android:title="Text size">
-        <menu>>
+        <menu>
             <item
                 android:id="@+id/six"
                 android:showAsAction="always"
@@ -58,10 +65,88 @@
 
         </menu>
     </item>
+
+    <item
+        android:id="@+id/animation"
+        android:showAsAction="never"
+        android:title="Animation">
+
+        <menu>
+            <item
+                android:id="@+id/simple"
+                android:showAsAction="always"
+                android:title="Simple"/>
+            <item
+                android:id="@+id/transformationUp"
+                android:showAsAction="always"
+                android:title="Transformation Up"/>
+            <item
+                android:id="@+id/transformationDown"
+                android:showAsAction="always"
+                android:title="Transformation Down"/>
+            <item
+                android:id="@+id/curl"
+                android:showAsAction="always"
+                android:title="Curl"/>
+        </menu>
+
+    </item>
+
+    <item
+        android:id="@+id/text_color"
+        android:showAsAction="never"
+        android:title="Text Colour">
+
+        <menu>
+            <item
+                android:id="@+id/black"
+                android:showAsAction="always"
+                android:title="Black"/>
+            <item
+                android:id="@+id/red"
+                android:showAsAction="always"
+                android:title="Red"/>
+            <item
+                android:id="@+id/blue"
+                android:showAsAction="always"
+                android:title="Blue"/>
+            <item
+                android:id="@+id/green"
+                android:showAsAction="always"
+                android:title="green"/>
+        </menu>
+
+    </item>
+
+    <item
+        android:id="@+id/bookmarks"
+        android:showAsAction="never"
+        android:title="Bookmarks">
+    </item>
+
+
     <item
         android:id="@+id/font"
         android:showAsAction="never"
         android:title="font">
+        <menu>
+            <item
+                android:id="@+id/normalStyle"
+                android:showAsAction="never"
+                android:title="Normal"/>
+            <item
+                android:id="@+id/bold"
+                android:showAsAction="never"
+                android:title="Bold"/>
+            <item
+                android:id="@+id/italic"
+                android:showAsAction="never"
+                android:title="Italic"/>
+            <item
+                android:id="@+id/boldItalic"
+                android:showAsAction="never"
+                android:title="Bold-Italic"/>
+        </menu>
     </item>
 
 </menu>
