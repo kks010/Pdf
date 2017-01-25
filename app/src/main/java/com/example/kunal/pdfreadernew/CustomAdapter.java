@@ -23,6 +23,7 @@ public class CustomAdapter extends BaseAdapter {
 
     Context c;
     ArrayList<Doc> docs;
+    String bookName;
 
     public CustomAdapter(Context c, ArrayList<Doc> docs) {
         this.c = c;
@@ -52,21 +53,22 @@ public class CustomAdapter extends BaseAdapter {
             view= LayoutInflater.from(c).inflate(R.layout.card_view_list,viewGroup,false);
         }
 
-        final Doc pdfDoc= (Doc) this.getItem(i);
+        final Doc doc= (Doc) this.getItem(i);
 
         TextView nameTxt= (TextView) view.findViewById(R.id.pdf_name);
         ImageView img = (ImageView) view.findViewById(R.id.pdf_photo);
 
 
+        bookName=doc.getName();
         //BIND DATA
-        nameTxt.setText(pdfDoc.getName());
+        nameTxt.setText(bookName);
         img.setImageResource(R.drawable.book);
 
         //VIEW ITEM CLICK
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openView(pdfDoc.getPath());
+                openView(doc.getPath());
             }
         });
         return view;
@@ -92,6 +94,7 @@ public class CustomAdapter extends BaseAdapter {
         if(path.endsWith("epub")){
             Intent i = new Intent(c, EPubRendering.class);
             i.putExtra("PATH", path);
+            i.putExtra("BOOK_NAME",bookName);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             c.startActivity(i);
 

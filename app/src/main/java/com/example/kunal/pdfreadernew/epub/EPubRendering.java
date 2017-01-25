@@ -20,6 +20,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Base64;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -31,6 +33,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +42,10 @@ import com.ToxicBakery.viewpager.transforms.RotateDownTransformer;
 import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
 import com.ToxicBakery.viewpager.transforms.ZoomOutSlideTransformer;
 import com.example.kunal.pdfreadernew.R;
+import com.example.kunal.pdfreadernew.text.TextRendering;
+import com.example.kunal.pdfreadernew.translator.LangConverter;
+import com.example.kunal.pdfreadernew.translator.LangRequest;
+import com.example.kunal.pdfreadernew.translator.LangResponse;
 import com.github.mertakdut.BookSection;
 import com.github.mertakdut.CssStatus;
 import com.github.mertakdut.Reader;
@@ -55,7 +62,7 @@ import java.util.List;
 /**
  * Created by Kunal on 02-01-2017.
  */
-public class EPubRendering extends AppCompatActivity implements PageFragment.OnFragmentReadyListener, View.OnTouchListener {
+public class EPubRendering extends AppCompatActivity implements PageFragment.OnFragmentReadyListener, View.OnTouchListener,LangConverter.LangConverterListner{
 
     String path = null;
     Reader reader;
@@ -82,9 +89,17 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
     private int pageCount = Integer.MAX_VALUE;
     private int pxScreenWidth;
 
+    ProgressBar progressBar;
+    int progress;
+
     private boolean isPickedWebView = false;
 
     private boolean isSkippedToPage = false;
+
+    private Menu menu;
+
+    public String bookName;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -107,6 +122,51 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
         mViewPager.setOffscreenPageLimit(0);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                Log.d("kunal pos ", String.valueOf(getPosition) + " " + String.valueOf(pageCount));
+                progress= (getPosition) * 7;
+
+                progressBar.setProgress(progress);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        View existedView = findViewById(R.id.exist_view);
+
+        existedView.setOnClickListener(new View.OnClickListener() {
+            int exist=0;
+            @Override
+            public void onClick(View v) {
+                if(exist%2==0) {
+//                    getSupportActionBar().setTitle(path);
+                    getSupportActionBar().setTitle(Html.fromHtml
+                            ("<font color=\"black\">" + " " + bookName + "</font>"));
+                    getSupportActionBar().setBackgroundDrawable(getDrawable(R.color.white));
+                    menu.getItem(0).setIcon(R.drawable.whitebookmark);
+                    exist++;
+                }else {
+                    getSupportActionBar().setTitle(Html.fromHtml
+                            ("<font color=\"white\">" + "EPub Reader" + "</font>"));
+                    menu.getItem(0).setIcon(R.drawable.bookmark);
+                   getSupportActionBar().setBackgroundDrawable(getDrawable(R.color.colorPrimary));
+                    exist++;
+                }
+            }
+        });
 
         //UNPACK OUR DATA FROM INTENT
         Intent intent = this.getIntent();
@@ -117,6 +177,10 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
             path = intent.getExtras().getString("PATH");
 
         }
+        bookName=intent.getExtras().getString("BOOK_NAME");
+        bookName = bookName.substring(0, bookName.length() - 5);
+        bookName=bookName.toUpperCase();
+
 
         try {
             reader = new Reader();
@@ -173,7 +237,6 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
     }
 
 
-
     public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
         SectionsPagerAdapter(FragmentManager fm) {
@@ -189,6 +252,7 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             return PageFragment.newInstance(position);
+
         }
 
         @Override
@@ -224,6 +288,7 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
         if (bookSection != null) {
             return setFragmentView(isPickedWebView, bookSection.getSectionContent(), "text/html", "UTF-8"); // reader.isContentStyled
         }
+
 
         return null;
     }
@@ -281,7 +346,6 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
                     imageAsDrawable = new BitmapDrawable(getResources(), imageAsBitmap);
                     imageAsDrawable.setBounds(imageWidthStartPx, 0, imageWidthEndPx, imageAsBitmap.getHeight());
 
-
                     return imageAsDrawable;
                 }
             }, null));
@@ -299,9 +363,34 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
             textView.setTextSize(textSize);
             textView.setTextIsSelectable(true);
 
+//            int min = 0;
+//            int max = textView.getText().length();
+//            if (textView.isFocused()) {
+//                final int selStart = textView.getSelectionStart();
+//                final int selEnd = textView.getSelectionEnd();
+//
+//                min = Math.max(0, Math.min(selStart, selEnd));
+//                max = Math.max(0, Math.max(selStart, selEnd));
+//            }
+//            // Perform your definition lookup with the selected text
+//            final CharSequence selectedText = textView.getText().subSequence(min, max);
+//            // Finish and close the ActionMode
+//
+//            String langCode = "hi";
+//            LangConverter converter =  new LangConverter(EPubRendering.this);
+//            converter.execute(new LangRequest(selectedText.toString(),langCode));
+
             scrollView.addView(textView);
             return scrollView;
+
         }
+    }
+
+    @Override
+    public void getinfo(LangResponse langResponse) {
+        String translatedString=langResponse.translatedString;
+
+        Toast.makeText(getApplicationContext(),translatedString,Toast.LENGTH_LONG);
     }
 
 
@@ -334,6 +423,7 @@ public class EPubRendering extends AppCompatActivity implements PageFragment.OnF
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu=menu;
         getMenuInflater().inflate(R.menu.epub_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }

@@ -24,10 +24,10 @@
             android:id="@+id/text_after_login"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="You are now logged in"
+            android:text="You are now logged in(Open left Drawer)"
             android:textColor="@color/black"
             android:gravity="center"
-            android:textSize="80dp"/>
+            android:textSize="70dp"/>
 
         <include layout="@layout/activity_main" />
 
