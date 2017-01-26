@@ -1,3 +1,3 @@
-# Pdf
+# Reader
 
-This is Pdf Viewer App which enables the user to read all the pdf`s at one place.
+This is the Reader App which enables the user to read all the extensions file at one place.
